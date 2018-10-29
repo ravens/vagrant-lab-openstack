@@ -37,7 +37,7 @@ cp -r /usr/local/share/kolla-ansible/etc_examples/kolla /etc/
 cp /usr/local/share/kolla-ansible/ansible/inventory/* /vagrant
 sed -i s/'#openstack_release: ""'/'openstack_release: "rocky"'/g /etc/kolla/globals.yml
 sed -i s/'kolla_internal_vip_address: "10.10.10.254"'/'kolla_internal_vip_address: "192.168.50.68"'/g /etc/kolla/globals.yml
-sed -i s/'#network_interface: "eth0"'/'network_interface: "enp0s8"'/g
+sed -i s/'#network_interface: "eth0"'/'network_interface: "enp0s8"'/g /etc/kolla/globals.yml
 sed -i s/'#enable_haproxy: "yes"'/'enable_haproxy: "no"'/g /etc/kolla/globals.yml
 sed -i s/'#neutron_external_interface: "eth1"'/'neutron_external_interface: "enp0s9"'/g /etc/kolla/globals.yml
 kolla-genpwd 
