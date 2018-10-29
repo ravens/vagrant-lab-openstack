@@ -40,6 +40,7 @@ sed -i s/'kolla_internal_vip_address: "10.10.10.254"'/'kolla_internal_vip_addres
 sed -i s/'#network_interface: "eth0"'/'network_interface: "enp0s8"'/g /etc/kolla/globals.yml
 sed -i s/'#enable_haproxy: "yes"'/'enable_haproxy: "no"'/g /etc/kolla/globals.yml
 sed -i s/'#neutron_external_interface: "eth1"'/'neutron_external_interface: "enp0s9"'/g /etc/kolla/globals.yml
+sed -i s/'#nova_compute_virt_type: "kvm"'/'nova_compute_virt_type: "qemu"'/g /etc/kolla/globals.yml
 kolla-genpwd 
 cp /etc/kolla/passwords.yml /vagrant/
 ifconfig enp0s9 up
