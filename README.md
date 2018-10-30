@@ -22,3 +22,10 @@ vagrant ssh
 source /etc/kolla/admin-openrc.sh
 openstack server create --image cirros --flavor m1.tiny --key-name mykey --network demo-net demo1
 ```
+
+Access the web portal using http://192.168.50.68 (or whatever as public IP) and the admin user, with the following password :
+```
+vagrant ssh
+cat /etc/kolla/passwords.yml | grep keystone_admin_password | cut -d " " -f2
+```
+
