@@ -61,7 +61,7 @@ SHELL
 config.vm.provision "shell", inline: <<-SHELL
 pip install python-openstackclient
 source /etc/kolla/admin-openrc.sh
-sed -i s/"EXT_NET_CIDR='10.0.2.0\/24'"/"EXT_NET_CIDR='192.168.50.0\/24'"/g  /usr/local/share/kolla-ansible/init-runonce
+sed -i s,"EXT_NET_CIDR='10.0.2.0/24'","EXT_NET_CIDR='192.168.50.0/24'",g  /usr/local/share/kolla-ansible/init-runonce
 sed -i s/"EXT_NET_RANGE='start=10.0.2.150,end=10.0.2.199'"/"EXT_NET_RANGE='start=192.168.50.150,end=192.168.50.170'"/g /usr/local/share/kolla-ansible/init-runonce
 sed -i s/"EXT_NET_GATEWAY='10.0.2.1'"/"EXT_NET_GATEWAY='192.168.50.253'"/g /usr/local/share/kolla-ansible/init-runonce
 /usr/local/share/kolla-ansible/init-runonce
