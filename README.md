@@ -3,7 +3,12 @@ Some Vagrantfiles to build various version of Openstack. We focus on the Rocky r
 
 ## virtualbox-based, all-in-one lab
 
-You need virtualbox and vagrant for that one.
+You need virtualbox and vagrant for that one and some plugins to resize the initial disk image for convenience
+
+```
+vagrant plugin install vagrant-disksize
+```
+
 Preparation to your environment by editing the Vagrantfile :
 
 * fix the public_interface variable that is used for bridging the VM with your real network (i.e. ens18f1)
@@ -29,3 +34,4 @@ vagrant ssh
 cat /etc/kolla/passwords.yml | grep keystone_admin_password | cut -d " " -f2
 ```
 
+For convenience, a labuser/labpassword and a "lab" tenant is automatically created at the end of the provisioning process, with admin role. 
