@@ -66,5 +66,12 @@ sed -i s/"EXT_NET_RANGE='start=10.0.2.150,end=10.0.2.199'"/"EXT_NET_RANGE='start
 sed -i s/"EXT_NET_GATEWAY='10.0.2.1'"/"EXT_NET_GATEWAY='192.168.50.253'"/g /usr/local/share/kolla-ansible/init-runonce
 /usr/local/share/kolla-ansible/init-runonce
 SHELL
+  
+config.vm.provision "shell", inline: <<-SHELL
+source /etc/kolla/admin-openrc.sh
+openstack project create --description 'Openstack Lab' lab --domain default
+openstack user create --project lab --password labpassword labuser
+openstack role add --user labuser --project lab admin
+SHELL
 
 end
