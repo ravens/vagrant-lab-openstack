@@ -8,9 +8,10 @@ Vagrant.configure("2") do |config|
   $public_ip = "192.168.50.68" 
 
   config.vm.box = "ubuntu/xenial64"
-  config.vm.network "public_network", bridge: $physical_interface, ip: $public_ip 
-
-  config.vm.network "public_network", bridge: $physical_interface, auto_config: false
+  config.disksize.size = '120GB' # requires a vagrant plugin
+  
+  config.vm.network "public_network", bridge: $physical_interface, ip: $public_ip # API and web access
+  config.vm.network "public_network", bridge: $physical_interface, auto_config: false # Network interface for VMs
 
   config.vm.provider "virtualbox" do |v|
       v.name = "kolla-allinone"
@@ -27,7 +28,7 @@ apt-get -qy install python-dev libffi-dev gcc libssl-dev python-selinux python-s
 pip install ansible 
 pip install kolla-ansible
 mkdir /etc/ansible
-cat << 'EOF' | sudo tee /etc/ansible/ansible.cfg
+cat << 'EOF' | sudo tee /usr/local/etc/ansible/ansible.cfg
 [defaults]
 host_key_checking=False
 pipelining=True
@@ -43,7 +44,11 @@ sed -i s/'#neutron_external_interface: "eth1"'/'neutron_external_interface: "enp
 sed -i s/'#nova_compute_virt_type: "kvm"'/'nova_compute_virt_type: "qemu"'/g /etc/kolla/globals.yml
 kolla-genpwd 
 cp /etc/kolla/passwords.yml /vagrant/
-ifconfig enp0s9 up
+cat << 'EOF' | sudo tee /etc/network/interfaces.d/60-neutron.cfg
+auto enp0s9
+iface enp0s9 inet manual
+EOF
+ifup enp0s9
 kolla-ansible -i /vagrant/all-in-one bootstrap-servers
 kolla-ansible -i /vagrant/all-in-one prechecks
 kolla-ansible -i /vagrant/all-in-one deploy
