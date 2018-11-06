@@ -11,7 +11,6 @@ controller02
 # The network nodes are where your l3-agent and loadbalancers will run
 # This can be the same as a host in the control group
 [network]
-controller01
 compute01
 
 # inner-compute is the groups of compute nodes which do not have
