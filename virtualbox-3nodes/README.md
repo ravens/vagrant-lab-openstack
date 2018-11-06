@@ -2,7 +2,7 @@
 
 For this lab we want to run a distributed system configuration - having 3 nodes (2 controllers, one compute) deployed from a simple node running Kolla.
 
-## target architecture
+## physical architecture
 
 ```
                                  ┌─────────────────────────────────────────────────────────────────────────────────┐
@@ -28,6 +28,27 @@ For this lab we want to run a distributed system configuration - having 3 nodes 
 │                        ├───────────────────────────────────────────────┴──────────────────────────────────────────
 │                        │                                                                                          
 └────────────────────────┘                                                                                          
+```
+
+## logical architecture
+
+```
+                                   ┌───────────────────────────┐       ┌───────────────────────────┐                  
+                                   │                           │       │                           │                  
+                                   │     Openstack web/API     │       │     Openstack VMs         │                  
+                                   │                           │       │                           │                  
+                                   │     192.168.50.68/24      │       │   192.168.50.150-170/24   │                  
+                                   │                           │       │   ┌───────────┐           │                  
+                                   │                           │       │   │ physnet1  │           │                  
+                                   └───────────┬───────────────┘       └───┴─────┬─────┴───────────┘                  
+┌────────────────────────┐                     │                                 │                                    
+│                        │                     │                                 │                                    
+│     Router             │                     │                                 │                                    
+│                        │                     │                                 │                                    
+│     192.168.50.253/24  ├─────────────────────┴─────────────────────────────────┴────────────────────────────────────
+│                        │                                                                                            
+│                        │                                                                                            
+└────────────────────────┘                                                                                            
 ```
 
 ## how to run
