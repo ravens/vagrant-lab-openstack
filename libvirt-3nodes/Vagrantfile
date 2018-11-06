@@ -211,7 +211,7 @@ SHELL
 
     
     # physical interface
-    deploy.vm.network :public_network, :dev => $physical_interface, :dev => $physical_interface, :ip => '192.168.50.75'
+    deploy.vm.network :public_network, :bridge => $physical_interface, :dev => $physical_interface, :ip => '192.168.50.75'
 
     # deploying files to the VMs
     deploy.vm.provision "file", source: "ssh_key", destination: "/tmp/ssh_key"
