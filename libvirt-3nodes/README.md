@@ -2,6 +2,8 @@
 
 For this lab we want to run a distributed system configuration - having 3 nodes (2 controllers, one compute) deployed from a simple node running Kolla and libvirt as virtualization engine, which enables us to benefit from nested virtualization.
 
+At the moment the public network using neutron external interface does not work. It seems to be related to the underlying macvlan driver in use to share the physical interface.
+
 ## physical architecture
 
 ```

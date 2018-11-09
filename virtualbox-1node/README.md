@@ -1,37 +1,14 @@
-# vagrant-lab-openstack
-Some Vagrantfiles to build various version of Openstack. We focus on the Rocky release, using the containers based version (Kolla) to speedup deployment.
+## Virtualbox-based, all-in-one
 
-## virtualbox-based, all-in-one lab
-
-You need virtualbox and vagrant for that one and some plugins to resize the initial disk image for convenience
-
-```
-vagrant plugin install vagrant-disksize
-```
+You need virtualbox and vagrant for that one and some plugins to resize the initial disk image for convenience.
 
 Preparation to your environment by editing the Vagrantfile :
 
 * fix the public_interface variable that is used for bridging the VM with your real network (i.e. ens18f1)
 * fix all the IP used in the Vagrantfile for what will be the public network in Openstack (i.e. 192.168.50.68), but also CIDR (192.168.50.0/24) and gateway info (192.168.50.253)
 
-Bring up the VM :
+Then bringup the virtualbox VN
 ```
+cd virtualbox-1node
 vagrant up
 ```
-
-Should take less than 10min on a fast connection. 
-
-Access the openstack CLI client and run a demo VMs : 
-```
-vagrant ssh
-source /etc/kolla/admin-openrc.sh
-openstack server create --image cirros --flavor m1.tiny --key-name mykey --network demo-net demo1
-```
-
-Access the web portal using http://192.168.50.68 (or whatever as public IP) and the admin user, with the following password :
-```
-vagrant ssh
-cat /etc/kolla/passwords.yml | grep keystone_admin_password | cut -d " " -f2
-```
-
-For convenience, a labuser/labpassword and a "lab" tenant is automatically created at the end of the provisioning process, with admin role. 

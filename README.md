@@ -3,35 +3,13 @@ Some Vagrantfiles to build various version of Openstack. We focus on the Rocky r
 
 ## virtualbox-based, all-in-one lab
 
-You need virtualbox and vagrant for that one and some plugins to resize the initial disk image for convenience
+This lab uses a single VM to host a complete Openstack install. 
 
-```
-vagrant plugin install vagrant-disksize
-```
+## virtualbox-based, 3 nodes 
 
-Preparation to your environment by editing the Vagrantfile :
+This lab uses a 3 VMs to host an Openstack with 2 controllers and one compute node.
 
-* fix the public_interface variable that is used for bridging the VM with your real network (i.e. ens18f1)
-* fix all the IP used in the Vagrantfile for what will be the public network in Openstack (i.e. 192.168.50.68), but also CIDR (192.168.50.0/24) and gateway info (192.168.50.253)
+## libvirt-based, 3 nodes 
 
-Bring up the VM :
-```
-vagrant up
-```
-
-Should take less than 10min on a fast connection. 
-
-Access the openstack CLI client and run a demo VMs : 
-```
-vagrant ssh
-source /etc/kolla/admin-openrc.sh
-openstack server create --image cirros --flavor m1.tiny --key-name mykey --network demo-net demo1
-```
-
-Access the web portal using http://192.168.50.68 (or whatever as public IP) and the admin user, with the following password :
-```
-vagrant ssh
-cat /etc/kolla/passwords.yml | grep keystone_admin_password | cut -d " " -f2
-```
-
-For convenience, a labuser/labpassword and a "lab" tenant is automatically created at the end of the provisioning process, with admin role. 
+This lab uses a 3 VMs using libvirt as hypervisor to host an Openstack with 2 controllers and one compute node. 
+Warning : due to to the use of macvlan based interfaces; the neutron external interface does not work yet. (FIXME)
