@@ -42,6 +42,8 @@ EOF
 ifup eth2
 # deploy public ssh key so that the deploy node can run ansible
 cat /tmp/ssh_key.pub >> /root/.ssh/authorized_keys
+route del default
+route add default gw 192.168.50.253
 SHELL
 
   # this section is responsible for configuring Openstack after the ansible scripts are run
