@@ -38,6 +38,7 @@ SHELL
 cat << 'EOF' | sudo tee /etc/network/interfaces.d/60-neutron.cfg
 auto eth2
 iface eth2 inet manual
+post-up route del default && route add default gw 192.168.50.253
 EOF
 ifup eth2
 # deploy public ssh key so that the deploy node can run ansible
